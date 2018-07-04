@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
-
+import { DOBInput } from './components/DOBInput/DOBInput'
 import {
   minLength,
   startWithLetter,
@@ -53,6 +53,7 @@ const fields = [
   {
     name: 'dob',
     options: {
+      component: DOBInput,
       type: 'dob',
       validators: [
         required(),
