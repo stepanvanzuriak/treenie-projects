@@ -1,12 +1,9 @@
 class FormService {
   constructor() {
-    this._fields = []
+    this._fields = [];
   }
 
-  add(
-    name,
-    { type = 'text', value = '', validators = [], placeholder = '' } = {}
-  ) {
+  add(name, { type = 'text', value = '', validators = [], placeholder = '' } = {}) {
     this._fields.push({
       invalid: true,
       messages: [],
@@ -17,29 +14,29 @@ class FormService {
       validators,
       placeholder,
       type,
-      key: Object.keys(this._fields).length
-    })
+      key: Object.keys(this._fields).length,
+    });
   }
 
   isValid() {
-    return this._fields.every(field => !field.invalid)
+    return this._fields.every(field => !field.invalid);
   }
 
   validateForm(fields) {
     fields.forEach(field => {
-      const { validators } = field
-      const value = field.value
+      const { validators } = field;
+      const value = field.value;
 
       const errors = validators
         .map(validator => validator(value))
         .filter(({ check }) => !check)
-        .map(({ message }) => message)
+        .map(({ message }) => message);
 
-      field.invalid = !!errors.length
-      field.messages = errors
-    })
+      field.invalid = !!errors.length;
+      field.messages = errors;
+    });
 
-    return fields
+    return fields;
   }
 
   update(name, { value, dirty, focused, invalid } = {}) {
@@ -47,22 +44,22 @@ class FormService {
       if (field.name === name) {
         return {
           ...field,
-          value: value === undefined ? field.value : value,
-          dirty: dirty === undefined ? field.dirty : dirty,
-          focused: focused === undefined ? field.focused : focused,
-          invalid: invalid === undefined ? field.invalid : invalid
-        }
+          value: value || '',
+          dirty: !!dirty,
+          focused: !!focused,
+          invalid: !!invalid,
+        };
       }
 
-      return field
-    })
+      return field;
+    });
 
-    this._fields = this.validateForm(this._fields)
+    this._fields = this.validateForm(this._fields);
   }
 
   fields() {
-    return this._fields
+    return this._fields;
   }
 }
 
-export default FormService
+export default FormService;
