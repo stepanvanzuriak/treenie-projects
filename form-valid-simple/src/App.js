@@ -2,24 +2,26 @@ import React, { Component } from 'react'
 import './App.css'
 import { DOBInput } from './components/DOBInput/DOBInput'
 import {
-  minLength,
-  startWithLetter,
-  shouldInclude,
-  validateDate,
-  required
+  finalRequired,
+  finalMinLength,
+  finalStartWithLetter,
+  finalShouldInclude,
+  finalValidateDate,
+  composeValidators
 } from './validators/validators'
-import MainFormService from './components/MainFormService/MainFormService'
+
+import MainFinalForm from './components/MainFinalForm/MainFinalForm'
 
 const fields = [
   {
     name: 'username',
     options: {
       placeholder: 'Username',
-      validators: [
-        required(),
-        minLength(3, 'Username must be more then 3 letters length'),
-        startWithLetter('Username must start with letter')
-      ]
+      validators: composeValidators([
+        finalRequired(),
+        finalMinLength(3, 'Username must be more then 3 letters length'),
+        finalStartWithLetter('Username must start with letter')
+      ])
     }
   },
   {
@@ -27,13 +29,16 @@ const fields = [
     options: {
       type: 'password',
       placeholder: 'Password',
-      validators: [
-        required(),
-        minLength(6, 'Password must be more then 8 letters'),
-        shouldInclude(/[A-Z]/, 'Password must include big letter'),
-        shouldInclude(/[\d]/, 'Password must include numbers'),
-        shouldInclude(/[$@_!]/, 'Password must include special symbols $,@,_,!')
-      ]
+      validators: composeValidators([
+        finalRequired(),
+        finalMinLength(6, 'Password must be more then 8 letters'),
+        finalShouldInclude(/[A-Z]/, 'Password must include big letter'),
+        finalShouldInclude(/[\d]/, 'Password must include numbers'),
+        finalShouldInclude(
+          /[$@_!]/,
+          'Password must include special symbols $,@,_,!'
+        )
+      ])
     }
   },
   {
@@ -41,28 +46,39 @@ const fields = [
     options: {
       type: 'password',
       placeholder: 'Password again',
-      validators: [
-        required(),
-        minLength(6, 'Password must be more then 8 letters'),
-        shouldInclude(/[A-Z]/, 'Password must include big letter'),
-        shouldInclude(/[\d]/, 'Password must include numbers'),
-        shouldInclude(/[$@_!]/, 'Password must include special symbols $,@,_,!')
-      ]
+      validators: composeValidators([
+        finalRequired(),
+        finalMinLength(6, 'Password must be more then 8 letters'),
+        finalShouldInclude(/[A-Z]/, 'Password must include big letter'),
+        finalShouldInclude(/[\d]/, 'Password must include numbers'),
+        finalShouldInclude(
+          /[$@_!]/,
+          'Password must include special symbols $,@,_,!'
+        )
+      ])
     }
   },
   {
     name: 'dob',
     options: {
       component: DOBInput,
-      type: 'dob',
-      validators: [
-        required(),
-        minLength(1, 'Date of birth must be not empty'),
-        validateDate()
-      ]
+      validators: composeValidators([
+        finalRequired(),
+        finalMinLength(1, 'Date of birth must be not empty'),
+        finalValidateDate()
+      ])
     }
   }
 ]
+
+const formValidator = values => {
+  const errors = {}
+  if (values.password1 !== values.password2) {
+    errors.password2 = 'Must be same with Password'
+  }
+
+  return errors
+}
 
 class App extends Component {
   render() {
@@ -70,7 +86,7 @@ class App extends Component {
       <div className="container">
         <div className="row">
           <div className="Absolute-Center is-Responsive">
-            <MainFormService fields={fields} />
+            <MainFinalForm fields={fields} formValidator={formValidator} />
           </div>
         </div>
       </div>
