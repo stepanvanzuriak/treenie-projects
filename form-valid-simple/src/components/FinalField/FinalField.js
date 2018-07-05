@@ -9,7 +9,9 @@ const FinalField = ({ placeholder, component, type = 'text', ...rest }) => {
       {({ input, meta }) => (
         <FormGroup>
           <Component {...input} type={type} placeholder={placeholder} />
-          {meta.touched &&
+
+          {!meta.active &&
+            meta.touched &&
             meta.error && <span style={{ color: 'red' }}>{meta.error}</span>}
         </FormGroup>
       )}

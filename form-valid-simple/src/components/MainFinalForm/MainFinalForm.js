@@ -20,7 +20,6 @@ const MainFinalForm = ({ fields, formValidator }) => {
     <Form
       validate={formValidator}
       subscription={{ submitting: true, pristine: true }}
-      validateOnBlur
       onSubmit={onSubmit}
       render={({ handleSubmit }) => (
         <BootstrapFrom onSubmit={handleSubmit}>
