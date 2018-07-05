@@ -94,18 +94,4 @@ class App extends Component {
   }
 }
 
-/*
-const formValidator = fields => {
-  const errors = {}
-  const { password1, password2 } = fields
-  if (
-    (!password1.invalid || !password2.invalid) &&
-    password1.value !== password2.value
-  ) {
-    errors.password2 = ['Not equal with Password field']
-  }
-  return errors
-}
-*/
-
 export default App

@@ -47,7 +47,6 @@ export const finalValidateDate = _ => value =>
     : 'Invalid date'
 
 export const composeValidators = validators => value => {
-  console.log(value)
   let error = undefined
 
   validators.forEach(validator => {
