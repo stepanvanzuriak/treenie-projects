@@ -11,39 +11,60 @@ import { books } from '../api/books'
 const setBooks = books => ({ type: SET_BOOKS, payload: { books } })
 
 /**
- * Action for change page to next
+ * Action for changing page to next
  * @returns {FluxStandardAction}
  */
 export const nextPage = () => ({ type: NEXT_PAGE })
 
 /**
- * Action for change page to prev
+ * Action for changing page to prev
  * @returns {FluxStandardAction}
  */
 export const prevPage = () => ({ type: PREV_PAGE })
 
 /**
+ * Divide array by chunks
+ * @param {array} array - Array to divide
+ * @param {number} size - Chunk size
+ * @returns {array}
+ */
+const chunks = (array, size) => {
+  const result = []
+  let tmpArray = []
+  let count = 0
+
+  array.map((element, index) => {
+    count++
+    tmpArray.push(element)
+    if (count === size) {
+      result.push(tmpArray)
+      count = 0
+      tmpArray = []
+    }
+  })
+
+  return result
+}
+
+/**
  * Action for getting books list
  * @returns {function}
  */
-export const getBooks = (currentPage, pageSize) => {
+export const getBooks = pageSize => {
   return dispatch => {
     books()
       .then(result =>
         dispatch(
           setBooks(
-            result.data
-              .filter(
-                ({ ID }) =>
-                  ID >= currentPage * pageSize + 1 &&
-                  ID < currentPage * pageSize + pageSize + 1
-              )
-              .map(book => ({
+            chunks(
+              result.data.map(book => ({
                 ...book,
                 Description: book.Description.substr(0, 100),
                 Excerpt: book.Excerpt.substr(0, 150),
                 PublishDate: moment(book.PublishDate).format('L')
-              }))
+              })),
+              pageSize
+            )
           )
         )
       )
