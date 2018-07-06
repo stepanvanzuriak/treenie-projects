@@ -1,58 +1,52 @@
-import axios from 'axios'
-import {
-  OPEN_BOOK_PAGE,
-  OPEN_BOOKS_LIST_PAGE,
-  SET_BOOKS,
-  SET_BOOKS_COUNT,
-  SET_BOOK,
-  CLEAR_BOOKS
-} from './actionTypes'
+import moment from 'moment'
 
-const bookApi = id =>
-  axios.get('https://fakerestapi.azurewebsites.net/api/Books', {
-    params: { ID: id }
-  })
-
-export const openBookPage = () => ({ type: OPEN_BOOK_PAGE })
-
-export const openBooksListPage = () => ({ type: OPEN_BOOKS_LIST_PAGE })
-
-const setBooks = (books, startId, currentPage) => ({
-  type: SET_BOOKS,
-  startId,
-  books,
-  currentPage
-})
-
-export const setBooksPageCount = booksCount => ({
-  type: SET_BOOKS_COUNT,
-  booksCount
-})
-
-export const clearBooks = () => ({ type: CLEAR_BOOKS })
+import { SET_BOOKS, NEXT_PAGE, PREV_PAGE } from './actionTypes'
+import { books } from '../api/books'
 
 /**
- * @return FluxStandardAction
+ * Action for book setting
+ * @param {array} books - Books list
+ * @returns {FluxStandardAction}
  */
-const setBook = book => ({ type: SET_BOOK, currentBook: book })
+const setBooks = books => ({ type: SET_BOOKS, payload: { books } })
 
-export const getBook = id => {
-  return dispatch =>
-    bookApi(id)
-      .then(res => dispatch(setBook(res.data)))
-      .catch(error => console.error(error))
-}
+/**
+ * Action for change page to next
+ * @returns {FluxStandardAction}
+ */
+export const nextPage = () => ({ type: NEXT_PAGE })
 
-export const getBooks = (startId = 0, size = 5) => {
-  return dispatch =>
-    axios
-      .all(
-        new Array(size).fill(0).map((_, index) => bookApi(index + 1 + startId))
+/**
+ * Action for change page to prev
+ * @returns {FluxStandardAction}
+ */
+export const prevPage = () => ({ type: PREV_PAGE })
+
+/**
+ * Action for getting books list
+ * @returns {function}
+ */
+export const getBooks = (currentPage, pageSize) => {
+  return dispatch => {
+    books()
+      .then(result =>
+        dispatch(
+          setBooks(
+            result.data
+              .filter(
+                ({ ID }) =>
+                  ID >= currentPage * pageSize + 1 &&
+                  ID < currentPage * pageSize + pageSize + 1
+              )
+              .map(book => ({
+                ...book,
+                Description: book.Description.substr(0, 100),
+                Excerpt: book.Excerpt.substr(0, 150),
+                PublishDate: moment(book.PublishDate).format('L')
+              }))
+          )
+        )
       )
-      .then(result => {
-        const books = result.map(book => book.data)
-
-        dispatch(setBooks(books, startId, startId / size))
-      })
-      .catch(error => console.error(error))
+      .catch(error => console.log(error))
+  }
 }

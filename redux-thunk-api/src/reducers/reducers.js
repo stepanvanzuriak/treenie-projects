@@ -1,56 +1,21 @@
-import {
-  SET_BOOK,
-  OPEN_BOOK_PAGE,
-  OPEN_BOOKS_LIST_PAGE,
-  SET_BOOKS_COUNT,
-  SET_BOOKS,
-  CLEAR_BOOKS
-} from '../actions/actionTypes'
+import { SET_BOOKS, NEXT_PAGE, PREV_PAGE } from '../actions/actionTypes'
 
-const initialState = {
+const initState = {
   books: [],
-  booksListCurrentStartId: -1,
-  booksListCurrentPage: 0,
-  currentPage: 'BooksList',
-  currentBook: null,
-  booksCount: -1
+  currentPage: 0,
+  pageSize: 6,
+  pageCount: 30
 }
 
-export const booksApp = (state = initialState, action) => {
-  switch (action.type) {
+export const bookShop = (state = initState, { type, payload }) => {
+  switch (type) {
     case SET_BOOKS:
-      return {
-        ...state,
-        booksListCurrentStartId: action.startId,
-        booksListCurrentPage: action.currentPage,
-        books: action.books
-      }
-    case SET_BOOK:
-      return {
-        ...state,
-        currentBook: action.currentBook
-      }
-    case OPEN_BOOK_PAGE:
-      return {
-        ...state,
-        currentPage: 'BookPage'
-      }
-    case OPEN_BOOKS_LIST_PAGE:
-      return {
-        ...state,
-        currentPage: 'BooksList',
-        currentBook: null
-      }
-    case SET_BOOKS_COUNT:
-      return {
-        ...state,
-        booksCount: action.booksCount
-      }
-    case CLEAR_BOOKS:
-      return {
-        ...state,
-        books: []
-      }
+      const { books } = payload
+      return { ...state, books }
+    case NEXT_PAGE:
+      return { ...state, books: [], currentPage: state.currentPage + 1 }
+    case PREV_PAGE:
+      return { ...state, books: [], currentPage: state.currentPage - 1 }
     default:
       return state
   }
