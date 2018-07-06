@@ -49,6 +49,7 @@ const chunks = (array, size) => {
 
 /**
  * Action for getting books list
+ * @param {number} pageSize - Count of books on list
  * @returns {function}
  */
 export const getBooks = pageSize => {
