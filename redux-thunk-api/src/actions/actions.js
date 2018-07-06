@@ -8,6 +8,11 @@ import {
   CLEAR_BOOKS
 } from './actionTypes'
 
+const bookApi = id =>
+  axios.get('https://fakerestapi.azurewebsites.net/api/Books', {
+    params: { ID: id }
+  })
+
 export const openBookPage = () => ({ type: OPEN_BOOK_PAGE })
 
 export const openBooksListPage = () => ({ type: OPEN_BOOKS_LIST_PAGE })
@@ -30,39 +35,20 @@ const setBook = book => ({ type: SET_BOOK, currentBook: book })
 
 export const getBook = id => {
   return dispatch =>
-    axios
-      .get(`https://fakerestapi.azurewebsites.net/api/Books/${id}`)
+    bookApi(id)
       .then(res => dispatch(setBook(res.data)))
       .catch(error => console.error(error))
 }
 
 export const getBooks = (startId = 0, size = 5) => {
-  // FIXME: CHANGE TO ARRAY OF REQ
-  /*
-
-  const bookApi = id =>
-  axios.get('https://fakerestapi.azurewebsites.net/api/Books', {
-    params: { ID: id }
-  })
-  
-   yield all(
-      new Array(booksListSize)
-        .fill(0)
-        .map((_, index) =>
-          bookApi(index + 1 + booksListSize * (booksListPage - 1))
-        )
-    )
-  */
   return dispatch =>
     axios
-      .get('https://fakerestapi.azurewebsites.net/api/Books')
-      .then(res => {
-        const booksPagesCount = res.data.length
-        const books = res.data.filter(
-          (element, index) => index > startId && index < startId + size
-        )
+      .all(
+        new Array(size).fill(0).map((_, index) => bookApi(index + 1 + startId))
+      )
+      .then(result => {
+        const books = result.map(book => book.data)
 
-        dispatch(setBooksPageCount(booksPagesCount))
         dispatch(setBooks(books, startId, startId / size))
       })
       .catch(error => console.error(error))
