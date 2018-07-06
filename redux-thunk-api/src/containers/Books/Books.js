@@ -18,32 +18,29 @@ const style = {
 class Books extends Component {
   constructor(props) {
     super(props)
-
     props.dispatch(getBooks(props.pageSize))
   }
 
   render() {
-    const { isPrev, isNext, books, currentPage, dispatch } = this.props
+    const { isPrev, isNext, books, dispatch } = this.props
 
-    const booksList =
-      books.length > 0
-        ? books[currentPage].map(
-            ({
-              ID: id,
-              Title: title,
-              Description: description,
-              Excerpt: excerpt,
-              PublishDate: publishDate
-            }) => (
-              <Col key={id} sm="6">
-                <BookCard
-                  style={style.card}
-                  {...{ id, title, description, excerpt, publishDate }}
-                />
-              </Col>
-            )
-          )
-        : []
+    const booksList = books.map(
+      ({
+        ID: id,
+        Title: title,
+        Description: description,
+        Excerpt: excerpt,
+        PublishDate: publishDate
+      }) => (
+        <Col key={id} sm="6">
+          <BookCard
+            style={style.card}
+            {...{ id, title, description, excerpt, publishDate }}
+          />
+        </Col>
+      )
+    )
+
     const body =
       booksList.length > 0 ? (
         <Fragment>
@@ -79,16 +76,14 @@ class Books extends Component {
 }
 
 const mapStateToProps = ({ books, currentPage, pageSize, pageCount }) => ({
-  books,
-  currentPage,
   pageSize,
+  books: books[currentPage] || [],
   isPrev: currentPage > 0,
   isNext: currentPage !== pageCount
 })
 
 Books.defaultProps = {
   books: [],
-  currentPage: 0,
   pageSize: 0,
   isPrev: false,
   isNext: false
@@ -96,7 +91,6 @@ Books.defaultProps = {
 
 Books.propTypes = {
   books: PropTypes.array,
-  currentPage: PropTypes.number,
   pageSize: PropTypes.number,
   isPrev: PropTypes.bool,
   isNext: PropTypes.bool
