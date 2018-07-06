@@ -3,7 +3,7 @@ import FinalField from '../FinalField/FinalField'
 import { Form } from 'react-final-form'
 import { Button, Input, Form as BootstrapFrom } from 'reactstrap'
 
-const onSubmit = values => {}
+const onSubmit = () => {}
 
 const MainFinalForm = ({ fields, formValidator }) => {
   const formFields = fields.map(({ name, options }) => (

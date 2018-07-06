@@ -1,0 +1,6 @@
+export const OPEN_BOOK_PAGE = 'OPEN_BOOK_PAGE'
+export const OPEN_BOOKS_LIST_PAGE = 'OPEN_BOOKS_LIST_PAGE'
+export const SET_BOOKS = 'SET_BOOKS'
+export const SET_BOOK = 'SET_BOOK'
+export const SET_BOOKS_COUNT = 'SET_BOOKS_COUNT'
+export const CLEAR_BOOKS = 'CLEAR_BOOKS'
