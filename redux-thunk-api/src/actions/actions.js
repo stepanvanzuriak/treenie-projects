@@ -39,6 +39,11 @@ export const getBook = id => {
 export const getBooks = (startId = 0, size = 5) => {
   // FIXME: CHANGE TO ARRAY OF REQ
   /*
+
+  const bookApi = id =>
+  axios.get('https://fakerestapi.azurewebsites.net/api/Books', {
+    params: { ID: id }
+  })
   
    yield all(
       new Array(booksListSize)
