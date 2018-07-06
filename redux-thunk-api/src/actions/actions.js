@@ -38,6 +38,16 @@ export const getBook = id => {
 
 export const getBooks = (startId = 0, size = 5) => {
   // FIXME: CHANGE TO ARRAY OF REQ
+  /*
+  
+   yield all(
+      new Array(booksListSize)
+        .fill(0)
+        .map((_, index) =>
+          bookApi(index + 1 + booksListSize * (booksListPage - 1))
+        )
+    )
+  */
   return dispatch =>
     axios
       .get('https://fakerestapi.azurewebsites.net/api/Books')
