@@ -33,9 +33,10 @@ const chunks = (array, size) => {
   let tmpArray = []
   let count = 0
 
-  array.map((element, index) => {
+  array.forEach(element => {
     count++
     tmpArray.push(element)
+
     if (count === size) {
       result.push(tmpArray)
       count = 0
