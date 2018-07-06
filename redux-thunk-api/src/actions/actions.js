@@ -26,6 +26,9 @@ export const setBooksPageCount = booksCount => ({
 
 export const clearBooks = () => ({ type: CLEAR_BOOKS })
 
+/**
+ * @return FluxStandardAction
+ */
 const setBook = book => ({ type: SET_BOOK, currentBook: book })
 
 export const getBook = id => {

@@ -1,20 +1,12 @@
 import React, { Component } from 'react'
 import { Container, Row } from 'reactstrap'
+import { connect } from 'react-redux'
 
 import './App.css'
-import BooksListPage from './components/BooksListPage/BooksListPage'
+import BooksListPage from './components/BooksListPage'
 import { getBooks } from './actions/actions'
-
-import { connect } from 'react-redux'
 import BookPage from './components/BookPage/BookPage'
 
-const mapStateToProps = state => state
-
-const mapDispatchToProps = dispatch => ({
-  getBooks: (startId, size) => {
-    dispatch(getBooks(startId, size))
-  }
-})
 
 class App extends Component {
   constructor(props) {
@@ -44,6 +36,14 @@ class App extends Component {
     )
   }
 }
+
+const mapStateToProps = state => state
+
+const mapDispatchToProps = dispatch => ({
+  getBooks: (startId, size) => {
+    dispatch(getBooks(startId, size))
+  }
+})
 
 export default connect(
   mapStateToProps,
