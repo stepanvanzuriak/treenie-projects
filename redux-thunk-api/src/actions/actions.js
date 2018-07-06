@@ -37,6 +37,7 @@ export const getBook = id => {
 }
 
 export const getBooks = (startId = 0, size = 5) => {
+  // FIXME: CHANGE TO ARRAY OF REQ
   return dispatch =>
     axios
       .get('https://fakerestapi.azurewebsites.net/api/Books')
