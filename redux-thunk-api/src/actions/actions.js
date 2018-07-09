@@ -2,6 +2,7 @@ import moment from 'moment'
 
 import { SET_BOOKS, NEXT_PAGE, PREV_PAGE } from './actionTypes'
 import { books } from '../api/books'
+import { chunks } from '../utils/utils'
 
 /**
  * Action for book setting
@@ -24,32 +25,6 @@ export const nextPage = () => ({ type: NEXT_PAGE })
  * @returns {FluxStandardAction}
  */
 export const prevPage = () => ({ type: PREV_PAGE })
-
-/**
- * Divide array by chunks
- *
- * @param {array} array  Array to divide
- * @param {number} size  Chunk size
- * @returns {array}
- */
-const chunks = (array, size) => {
-  const result = []
-  let tmpArray = []
-  let count = 0
-
-  array.forEach(element => {
-    count++
-    tmpArray.push(element)
-
-    if (count === size) {
-      result.push(tmpArray)
-      count = 0
-      tmpArray = []
-    }
-  })
-
-  return result
-}
 
 /**
  * Action for getting books list
