@@ -5,27 +5,31 @@ import { books } from '../api/books'
 
 /**
  * Action for book setting
- * @param {array} books - Books list
+ *
+ * @param {array} books  Books list
  * @returns {FluxStandardAction}
  */
 const setBooks = books => ({ type: SET_BOOKS, payload: { books } })
 
 /**
  * Action for changing page to next
+ *
  * @returns {FluxStandardAction}
  */
 export const nextPage = () => ({ type: NEXT_PAGE })
 
 /**
  * Action for changing page to prev
+ *
  * @returns {FluxStandardAction}
  */
 export const prevPage = () => ({ type: PREV_PAGE })
 
 /**
  * Divide array by chunks
- * @param {array} array - Array to divide
- * @param {number} size - Chunk size
+ *
+ * @param {array} array  Array to divide
+ * @param {number} size  Chunk size
  * @returns {array}
  */
 const chunks = (array, size) => {
@@ -49,7 +53,7 @@ const chunks = (array, size) => {
 
 /**
  * Action for getting books list
- * @param {number} pageSize - Count of books on list
+ * @param {number} pageSize Page count in book list
  * @returns {function}
  */
 export const getBooks = pageSize => {
