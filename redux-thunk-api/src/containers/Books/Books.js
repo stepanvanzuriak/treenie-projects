@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 import { BookCard } from '../../components/BookCard'
 import { getBooks, prevPage, nextPage } from '../../actions/actions'
-import Spinner from '../../components/Spinner'
+import { Spinner } from '../../components/Spinner'
 import { Error } from '../../components/Error'
 
 const style = {

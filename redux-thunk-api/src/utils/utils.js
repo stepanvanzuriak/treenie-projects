@@ -21,5 +21,9 @@ export const chunks = (array, size) => {
     }
   })
 
+  if (count !== 0) {
+    result.push(tmpArray)
+  }
+
   return result
 }

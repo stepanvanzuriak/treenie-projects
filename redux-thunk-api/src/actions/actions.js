@@ -10,7 +10,7 @@ import { chunks } from '../utils/utils'
  * @param {array} books  Books list
  * @returns {FluxStandardAction}
  */
-const setBooks = books => ({ type: SET_BOOKS, payload: { books } })
+export const setBooks = books => ({ type: SET_BOOKS, payload: { books } })
 
 /**
  * Action for error setting
@@ -18,7 +18,7 @@ const setBooks = books => ({ type: SET_BOOKS, payload: { books } })
  * @param {string} error  Error text
  * @returns {FluxStandardAction}
  */
-const addError = error => ({ type: ADD_ERROR, payload: { error } })
+export const addError = error => ({ type: ADD_ERROR, payload: { error } })
 
 /**
  * Action for changing page to next
