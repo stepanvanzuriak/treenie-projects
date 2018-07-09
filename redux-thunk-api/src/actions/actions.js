@@ -41,7 +41,7 @@ export const prevPage = () => ({ type: PREV_PAGE })
  */
 export const getBooks = pageSize => {
   return dispatch => {
-    books()
+    return books()
       .then(result =>
         dispatch(
           setBooks(
