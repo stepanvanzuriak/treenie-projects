@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-import { SET_BOOKS, NEXT_PAGE, PREV_PAGE } from './actionTypes'
+import { SET_BOOKS, NEXT_PAGE, PREV_PAGE, ADD_ERROR } from './actionTypes'
 import { books } from '../api/books'
 import { chunks } from '../utils/utils'
 
@@ -11,6 +11,14 @@ import { chunks } from '../utils/utils'
  * @returns {FluxStandardAction}
  */
 const setBooks = books => ({ type: SET_BOOKS, payload: { books } })
+
+/**
+ * Action for error setting
+ *
+ * @param {string} error  Error text
+ * @returns {FluxStandardAction}
+ */
+const addError = error => ({ type: ADD_ERROR, payload: { error } })
 
 /**
  * Action for changing page to next
@@ -49,6 +57,8 @@ export const getBooks = pageSize => {
           )
         )
       )
-      .catch(error => console.log(error))
+      .catch(error =>
+        dispatch(addError(':( Something bad happen. Try again later.'))
+      )
   }
 }

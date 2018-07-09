@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { BookCard } from '../../components/BookCard'
 import { getBooks, prevPage, nextPage } from '../../actions/actions'
 import Spinner from '../../components/Spinner'
+import { Error } from '../../components/Error'
 
 const style = {
   card: {
@@ -23,7 +24,15 @@ class Books extends Component {
   }
 
   render() {
-    const { isPrev, isNext, books, dispatch } = this.props
+    const {
+      isPrev,
+      isNext,
+      books,
+      dispatch,
+      loading,
+      error,
+      errors
+    } = this.props
 
     const booksList = books.map(
       ({
@@ -48,42 +57,54 @@ class Books extends Component {
       )
     )
 
-    const body =
-      booksList.length > 0 ? (
-        <Fragment>
-          <Row>{booksList}</Row>
-          <Row style={style.controls}>
-            <Col>
-              <Button
-                onClick={() => dispatch(prevPage())}
-                block
-                color="primary"
-                disabled={!isPrev}
-              >
-                Prev
-              </Button>
-            </Col>
-            <Col>
-              <Button
-                onClick={() => dispatch(nextPage())}
-                block
-                color="primary"
-                disabled={!isNext}
-              >
-                Next
-              </Button>
-            </Col>
-          </Row>
-        </Fragment>
-      ) : (
-        <Spinner />
-      )
+    const body = loading ? (
+      <Spinner />
+    ) : error ? (
+      errors.map(error => <Error text={error} />)
+    ) : (
+      <Fragment>
+        <Row>{booksList}</Row>
+        <Row style={style.controls}>
+          <Col>
+            <Button
+              onClick={() => dispatch(prevPage())}
+              block
+              color="primary"
+              disabled={!isPrev}
+            >
+              Prev
+            </Button>
+          </Col>
+          <Col>
+            <Button
+              onClick={() => dispatch(nextPage())}
+              block
+              color="primary"
+              disabled={!isNext}
+            >
+              Next
+            </Button>
+          </Col>
+        </Row>
+      </Fragment>
+    )
     return body
   }
 }
 
-const mapStateToProps = ({ books, currentPage, pageSize, pageCount }) => ({
+const mapStateToProps = ({
+  books,
+  currentPage,
   pageSize,
+  pageCount,
+  loading,
+  error,
+  errors
+}) => ({
+  pageSize,
+  loading,
+  error,
+  errors,
   books: books[currentPage] || [],
   isPrev: currentPage > 0,
   isNext: currentPage !== pageCount
@@ -91,6 +112,7 @@ const mapStateToProps = ({ books, currentPage, pageSize, pageCount }) => ({
 
 Books.defaultProps = {
   books: [],
+  loading: true,
   pageSize: 0,
   isPrev: false,
   isNext: false
@@ -98,6 +120,7 @@ Books.defaultProps = {
 
 Books.propTypes = {
   books: PropTypes.array,
+  loading: PropTypes.bool,
   pageSize: PropTypes.number,
   isPrev: PropTypes.bool,
   isNext: PropTypes.bool
