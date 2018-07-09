@@ -34,8 +34,14 @@ class Books extends Component {
       }) => (
         <Col key={id} sm="6">
           <BookCard
-            style={style.card}
-            {...{ id, title, description, excerpt, publishDate }}
+            {...{
+              style: style.card,
+              id,
+              title,
+              description,
+              excerpt,
+              publishDate
+            }}
           />
         </Col>
       )
