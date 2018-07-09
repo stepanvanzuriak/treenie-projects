@@ -6,4 +6,6 @@ test('Normal array dividing', () => {
 
 test('Abnormal array dividing', () => {
   expect(chunks([1, 2, 3], 2)).toEqual([[1, 2], [3]])
+  expect(chunks([], 10)).toEqual([])
+  expect(chunks([1, 2, 3], 0)).toEqual([[1, 2, 3]])
 })
