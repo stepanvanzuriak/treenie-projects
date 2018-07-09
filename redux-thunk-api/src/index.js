@@ -5,7 +5,6 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 
 import App from './App'
-
 import registerServiceWorker from './registerServiceWorker'
 import { bookShop } from './reducers/reducers'
 import 'bootstrap/dist/css/bootstrap.min.css'

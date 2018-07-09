@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import { Row, Col, Button } from 'reactstrap'
 import PropTypes from 'prop-types'
-import { BookCard } from '../../components/BookCard'
 import { connect } from 'react-redux'
+
+import { BookCard } from '../../components/BookCard'
 import { getBooks, prevPage, nextPage } from '../../actions/actions'
 import Spinner from '../../components/Spinner'
 
