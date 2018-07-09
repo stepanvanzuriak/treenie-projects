@@ -5,10 +5,17 @@
  * @param {number} size  Chunk size
  * @returns {array}
  */
-export const chunks = (array, size) => {
+export const chunks = (array = [], size = 0) => {
   const result = []
   let tmpArray = []
   let count = 0
+
+  size = size || 0
+  array = array || []
+
+  if (size === 0) {
+    return array
+  }
 
   array.forEach(element => {
     count++
