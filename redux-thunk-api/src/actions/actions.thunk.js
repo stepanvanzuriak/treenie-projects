@@ -7,9 +7,9 @@ import { setBooks, setBooksError, requestBooks } from './actions'
  * @param {number} pageSize Page count in book list
  * @returns {function}
  */
-export const getBooks = (pageSize, currentPage) => {
+export const getBooks = (pageSize, currentPage = null) => {
   return dispatch => {
-    if (currentPage) {
+    if (currentPage !== null) {
       dispatch(requestBooks(currentPage))
     } else {
       return books()
