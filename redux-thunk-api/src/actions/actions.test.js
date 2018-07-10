@@ -15,22 +15,13 @@ describe('async actions', () => {
   beforeEach(() => {
     moxios.install(instance)
   })
+
   afterEach(() => {
     moxios.uninstall(instance)
   })
 
   test('getBooks returns right action', async () => {
     const data = [
-      {
-        ID: 1,
-        Title: 'Book 1',
-        Description:
-          'Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\n',
-        PageCount: 100,
-        Excerpt:
-          'Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\n',
-        PublishDate: '2018-07-08T14:41:49.8522461+00:00'
-      },
       {
         ID: 1,
         Title: 'Book 1',
@@ -62,12 +53,35 @@ describe('async actions', () => {
     const pageSize = 6
 
     await store.dispatch(getBooks(pageSize))
-
     const actions = store.getActions()
+
     expect(actions[0]).toEqual({
       type: SET_BOOKS,
       payload: {
         books: [data.map(formatData)]
+      }
+    })
+  })
+
+  it('getBooks returns SET_ERROR on error', async () => {
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent()
+      request.reject({
+        status: 500,
+        response: { message: 'problem' }
+      })
+    })
+
+    const store = mockStore({})
+    const pageSize = 6
+
+    await store.dispatch(getBooks(pageSize))
+    const actions = store.getActions()
+
+    expect(actions[0]).toEqual({
+      type: ADD_ERROR,
+      payload: {
+        error: ':( Something bad happen. Try again later.'
       }
     })
   })
