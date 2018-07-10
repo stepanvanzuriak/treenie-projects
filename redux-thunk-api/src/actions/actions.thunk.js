@@ -5,6 +5,7 @@ import { setBooks, setBooksError, requestBooks } from './actions'
 /**
  * Action for getting books list
  * @param {number} pageSize Page count in book list
+ * @param {?number} currentPage Page to open
  * @returns {function}
  */
 export const getBooks = (pageSize, currentPage = null) => {
