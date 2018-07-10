@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 /**
  * Divide array by chunks
  *
@@ -34,3 +36,16 @@ export const chunks = (array = [], size = 0) => {
 
   return result
 }
+
+/**
+ * Formating function for books from api
+ *
+ * @param {object} book Book to format
+ * @returns {object} Formated book
+ */
+export const formatBook = book => ({
+  ...book,
+  Description: book.Description.substr(0, 100),
+  Excerpt: book.Excerpt.substr(0, 150),
+  PublishDate: moment(book.PublishDate).format('L')
+})

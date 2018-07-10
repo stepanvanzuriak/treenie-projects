@@ -1,8 +1,6 @@
-import moment from 'moment'
-
 import { SET_BOOKS, NEXT_PAGE, PREV_PAGE, ADD_ERROR } from './actionTypes'
 import { books } from '../api/books'
-import { chunks } from '../utils/utils'
+import { chunks, formatBook } from '../utils/utils'
 
 /**
  * Action for book setting
@@ -43,19 +41,7 @@ export const getBooks = pageSize => {
   return dispatch => {
     return books()
       .then(result =>
-        dispatch(
-          setBooks(
-            chunks(
-              result.data.map(book => ({
-                ...book,
-                Description: book.Description.substr(0, 100),
-                Excerpt: book.Excerpt.substr(0, 150),
-                PublishDate: moment(book.PublishDate).format('L')
-              })),
-              pageSize
-            )
-          )
-        )
+        dispatch(setBooks(chunks(result.data.map(formatBook), pageSize)))
       )
       .catch(error =>
         dispatch(addError(':( Something bad happen. Try again later.'))

@@ -4,10 +4,9 @@ import { SET_BOOKS, ADD_ERROR, NEXT_PAGE, PREV_PAGE } from './actionTypes'
 import configureMockStore from 'redux-mock-store'
 import moxios from 'moxios'
 import thunk from 'redux-thunk'
-import moment from 'moment'
-import { chunks } from '../utils/utils'
-import { book } from '../api/books'
+
 import { instance } from '../api/client'
+import { formatBook } from '../utils/utils'
 
 const mockStore = configureMockStore([thunk])
 
@@ -34,12 +33,8 @@ describe('async actions', () => {
       }
     ]
 
-    const formatData = book => ({
-      ...book,
-      Description: book.Description.substr(0, 100),
-      Excerpt: book.Excerpt.substr(0, 150),
-      PublishDate: moment(book.PublishDate).format('L')
-    })
+    const store = mockStore({})
+    const pageSize = 6
 
     moxios.wait(() => {
       const request = moxios.requests.mostRecent()
@@ -49,21 +44,20 @@ describe('async actions', () => {
       })
     })
 
-    const store = mockStore({})
-    const pageSize = 6
-
     await store.dispatch(getBooks(pageSize))
-    const actions = store.getActions()
 
-    expect(actions[0]).toEqual({
+    expect(store.getActions()[0]).toEqual({
       type: SET_BOOKS,
       payload: {
-        books: [data.map(formatData)]
+        books: [data.map(formatBook)]
       }
     })
   })
 
   it('getBooks returns SET_ERROR on error', async () => {
+    const store = mockStore({})
+    const pageSize = 6
+
     moxios.wait(() => {
       const request = moxios.requests.mostRecent()
       request.reject({
@@ -72,13 +66,9 @@ describe('async actions', () => {
       })
     })
 
-    const store = mockStore({})
-    const pageSize = 6
-
     await store.dispatch(getBooks(pageSize))
-    const actions = store.getActions()
 
-    expect(actions[0]).toEqual({
+    expect(store.getActions()[0]).toEqual({
       type: ADD_ERROR,
       payload: {
         error: ':( Something bad happen. Try again later.'
