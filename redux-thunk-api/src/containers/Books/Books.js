@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import { BookCard } from '../../components/BookCard'
-import { getBooks, prevPage, nextPage } from '../../actions/actions'
 import { Spinner } from '../../components/Spinner'
 import { Error } from '../../components/Error'
+import { getBooks } from '../../actions/actions.thunk'
 
 const style = {
   card: {
@@ -18,9 +18,8 @@ const style = {
 }
 
 class Books extends Component {
-  constructor(props) {
-    super(props)
-    props.dispatch(getBooks(props.pageSize))
+  componentDidMount() {
+    this.props.dispatch(getBooks(this.props.pageSize))
   }
 
   render() {
@@ -31,7 +30,8 @@ class Books extends Component {
       dispatch,
       loading,
       error,
-      errors
+      currentPage,
+      pageSize
     } = this.props
 
     const booksList = books.map(
@@ -60,14 +60,14 @@ class Books extends Component {
     const body = loading ? (
       <Spinner />
     ) : error ? (
-      errors.map(error => <Error text={error} />)
+      <Error text={error} />
     ) : (
       <Fragment>
         <Row>{booksList}</Row>
         <Row style={style.controls}>
           <Col>
             <Button
-              onClick={() => dispatch(prevPage())}
+              onClick={() => dispatch(getBooks(pageSize, currentPage - 1))}
               block
               color="primary"
               disabled={!isPrev}
@@ -77,7 +77,7 @@ class Books extends Component {
           </Col>
           <Col>
             <Button
-              onClick={() => dispatch(nextPage())}
+              onClick={() => dispatch(getBooks(pageSize, currentPage + 1))}
               block
               color="primary"
               disabled={!isNext}
@@ -98,13 +98,12 @@ const mapStateToProps = ({
   pageSize,
   pageCount,
   loading,
-  error,
-  errors
+  error
 }) => ({
   pageSize,
   loading,
   error,
-  errors,
+  currentPage,
   books: books[currentPage] || [],
   isPrev: currentPage > 0,
   isNext: currentPage !== pageCount
@@ -112,6 +111,8 @@ const mapStateToProps = ({
 
 Books.defaultProps = {
   books: [],
+  error: null,
+  currentPage: 0,
   loading: true,
   pageSize: 0,
   isPrev: false,
@@ -119,6 +120,8 @@ Books.defaultProps = {
 }
 
 Books.propTypes = {
+  currentPage: PropTypes.number,
+  error: PropTypes.string,
   books: PropTypes.array,
   loading: PropTypes.bool,
   pageSize: PropTypes.number,
