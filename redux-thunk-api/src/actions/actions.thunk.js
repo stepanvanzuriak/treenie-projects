@@ -9,17 +9,17 @@ import { setBooks, setBooksError, requestBooks } from './actions'
  */
 export const getBooks = (pageSize, currentPage) => {
   return dispatch => {
-    return books()
-      .then(result => {
-        if (currentPage) {
-          dispatch(requestBooks(currentPage))
-        } else {
+    if (currentPage) {
+      dispatch(requestBooks(currentPage))
+    } else {
+      return books()
+        .then(result => {
           dispatch(requestBooks(0))
           dispatch(setBooks(chunks(result.data.map(formatBook), pageSize)))
-        }
-      })
-      .catch(error =>
-        dispatch(setBooksError(':( Something bad happen. Try again later.'))
-      )
+        })
+        .catch(error =>
+          dispatch(setBooksError(':( Something bad happen. Try again later.'))
+        )
+    }
   }
 }
