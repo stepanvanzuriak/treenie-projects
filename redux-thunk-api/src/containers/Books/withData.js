@@ -31,7 +31,8 @@ export const withData = compose(
   connect(mapStateToProps),
   lifecycle({
     componentDidMount() {
-      this.props.dispatch(getBooks(this.props.pageSize))
+      const { dispatch, pageSize } = this.props
+      dispatch(getBooks(pageSize))
     }
   }),
   withProps(({ books, currentPage, pageSize, pageCount, loading, error }) => ({
