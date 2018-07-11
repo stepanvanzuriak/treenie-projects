@@ -9,7 +9,7 @@ import { ERROR_BOOKS, REQUEST_BOOKS, SUCCESS_BOOKS } from './actionTypes'
 
 const mockStore = configureMockStore([thunk])
 
-describe('async actions', () => {
+describe('async thunk actions', () => {
   beforeEach(() => {
     moxios.install(instance)
   })
