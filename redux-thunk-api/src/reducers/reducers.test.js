@@ -1,12 +1,5 @@
 import { bookShop } from './reducers'
-import {
-  setBooks,
-  nextPage,
-  prevPage,
-  addError,
-  requestBooks,
-  setBooksError
-} from '../actions/actions'
+import { setBooks, requestBooks, setBooksError } from '../actions/actions'
 
 describe('bookShop reducer', () => {
   const initState = {

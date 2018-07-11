@@ -1,9 +1,9 @@
 import moxios from 'moxios'
 import { loadBooks } from './sagas'
 import { runSaga } from '../../node_modules/redux-saga'
-import { chunks, formatBook } from '../utils/utils'
+import { formatBook } from '../utils/utils'
 import { instance } from '../api/client'
-import { setBooks } from '../actions/actions'
+
 import { ERROR_BOOKS, SUCCESS_BOOKS } from '../actions/actionTypes'
 
 describe('async sagas actions', () => {
@@ -61,18 +61,6 @@ describe('async sagas actions', () => {
   test('loadBooks returns ERROR_BOOKS on error', async () => {
     const dispatched = []
     const pageSize = 6
-    const data = [
-      {
-        ID: 1,
-        Title: 'Book 1',
-        Description:
-          'Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\n',
-        PageCount: 100,
-        Excerpt:
-          'Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\n',
-        PublishDate: '2018-07-08T14:41:49.8522461+00:00'
-      }
-    ]
 
     moxios.wait(() => {
       const request = moxios.requests.mostRecent()
