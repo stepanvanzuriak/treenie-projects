@@ -1,5 +1,15 @@
-import { setBooks, setBooksError, requestBooks } from './actions'
-import { SUCCESS_BOOKS, ERROR_BOOKS, REQUEST_BOOKS } from './actionTypes'
+import {
+  setBooks,
+  setBooksError,
+  requestBooks,
+  requestBooksAsync
+} from './actions'
+import {
+  SUCCESS_BOOKS,
+  ERROR_BOOKS,
+  REQUEST_BOOKS,
+  REQUEST_BOOKS_ASYNC
+} from './actionTypes'
 
 test('setBooks returns right action', () => {
   expect(setBooks([1, 2, 3])).toEqual({
@@ -20,5 +30,12 @@ test('requestBooks returns right action', () => {
   expect(requestBooks(1)).toEqual({
     type: REQUEST_BOOKS,
     payload: { currentPage: 1 }
+  })
+})
+
+test('requestBooksAsync returns right action', () => {
+  expect(requestBooksAsync(1)).toEqual({
+    type: REQUEST_BOOKS_ASYNC,
+    payload: { pageSize: 1 }
   })
 })

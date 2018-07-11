@@ -1,15 +1,7 @@
-import React from 'react'
 import { compose, lifecycle, withProps } from 'recompose'
 import { connect } from 'react-redux'
-import { getBooks } from '../../actions/actions.thunk'
-import { Col } from 'reactstrap'
-import { BookCard } from '../../components/BookCard'
 
-const style = {
-  card: {
-    marginTop: 3
-  }
-}
+import { requestBooksAsync } from '../../actions/actions'
 
 const mapStateToProps = ({
   books,
@@ -32,7 +24,7 @@ export const withData = compose(
   lifecycle({
     componentDidMount() {
       const { dispatch, pageSize } = this.props
-      dispatch(getBooks(pageSize))
+      dispatch(requestBooksAsync(pageSize))
     }
   }),
   withProps(({ books, currentPage, pageSize, pageCount, loading, error }) => ({
@@ -49,20 +41,13 @@ export const withData = compose(
         Description: description,
         Excerpt: excerpt,
         PublishDate: publishDate
-      }) => (
-        <Col key={id} sm="6">
-          <BookCard
-            {...{
-              style: style.card,
-              id,
-              title,
-              description,
-              excerpt,
-              publishDate
-            }}
-          />
-        </Col>
-      )
+      }) => ({
+        id,
+        title,
+        description,
+        excerpt,
+        publishDate
+      })
     )
   }))
 )

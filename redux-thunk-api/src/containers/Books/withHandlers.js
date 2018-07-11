@@ -1,11 +1,11 @@
 import { compose, withHandlers as wHandlers } from 'recompose'
-import { getBooks } from '../../actions/actions.thunk'
+import { requestBooks } from '../../actions/actions'
 
 export const withHandlers = compose(
   wHandlers({
-    onPrev: ({ pageSize, currentPage, dispatch }) => () =>
-      dispatch(getBooks(pageSize, currentPage - 1)),
-    onNext: ({ pageSize, currentPage, dispatch }) => () =>
-      dispatch(getBooks(pageSize, currentPage + 1))
+    onPrev: ({ currentPage, dispatch }) => () =>
+      dispatch(requestBooks(currentPage - 1)),
+    onNext: ({ currentPage, dispatch }) => () =>
+      dispatch(requestBooks(currentPage + 1))
   })
 )
