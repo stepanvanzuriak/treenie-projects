@@ -55,23 +55,27 @@ const Books = ({ isPrev, isNext, booksList, onPrev, onNext }) => {
 }
 
 Books.defaultProps = {
-  books: [],
   error: null,
   currentPage: 0,
   loading: true,
   pageSize: 0,
   isPrev: false,
-  isNext: false
+  isNext: false,
+  booksList: [],
+  onPrev: () => {},
+  onNext: () => {}
 }
 
 Books.propTypes = {
   currentPage: PropTypes.number,
   error: PropTypes.string,
-  books: PropTypes.array,
   loading: PropTypes.bool,
   pageSize: PropTypes.number,
   isPrev: PropTypes.bool,
-  isNext: PropTypes.bool
+  isNext: PropTypes.bool,
+  booksList: PropTypes.array,
+  onPrev: PropTypes.func,
+  onNext: PropTypes.func
 }
 
 export default compose(

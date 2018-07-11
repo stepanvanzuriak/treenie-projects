@@ -30,11 +30,17 @@ export const BookCard = ({
 BookCard.defaultProps = {
   title: '',
   description: '',
+  excerpt: '',
+  publishDate: '',
+  id: 0,
   onButtonClick: () => {}
 }
 
 BookCard.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
+  excerpt: PropTypes.string,
+  id: PropTypes.number,
+  publishDate: PropTypes.string,
   onButtonClick: PropTypes.func
 }
