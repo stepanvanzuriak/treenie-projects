@@ -1,6 +1,6 @@
-import { books } from '../api/books'
-import { chunks, formatBook } from '../utils/utils'
-import { setBooks, setBooksError, requestBooks } from './actions'
+import { books } from '../api/books';
+import { chunks, formatBook } from '../utils/utils';
+import { setBooks, setBooksError, requestBooks } from './actions';
 
 /**
  * Action for getting books list
@@ -8,19 +8,16 @@ import { setBooks, setBooksError, requestBooks } from './actions'
  * @param {?number} currentPage Page to open
  * @returns {function}
  */
-export const getBooks = (pageSize, currentPage = null) => {
-  return dispatch => {
-    if (currentPage !== null) {
-      dispatch(requestBooks(currentPage))
-    } else {
-      return books()
-        .then(result => {
-          dispatch(requestBooks(0))
-          dispatch(setBooks(chunks(result.data.map(formatBook), pageSize)))
-        })
-        .catch(error =>
-          dispatch(setBooksError(':( Something bad happen. Try again later.'))
-        )
-    }
+/* eslint-disable import/prefer-default-export */
+export const getBooks = (pageSize, currentPage = null) => (dispatch) => {
+  if (currentPage !== null) {
+    return dispatch(requestBooks(currentPage));
   }
-}
+  return books()
+    .then((result) => {
+      dispatch(requestBooks(0));
+      dispatch(setBooks(chunks(result.data.map(formatBook), pageSize)));
+    })
+    .catch(() => dispatch(setBooksError(':( Something bad happen. Try again later.')));
+};
+/* eslint-enable */

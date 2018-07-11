@@ -2,8 +2,8 @@ import {
   ERROR_BOOKS,
   SUCCESS_BOOKS,
   REQUEST_BOOKS,
-  REQUEST_BOOKS_ASYNC
-} from './actionTypes'
+  REQUEST_BOOKS_ASYNC,
+} from './actionTypes';
 
 /**
  * Action for setting book page
@@ -13,8 +13,8 @@ import {
  */
 export const requestBooks = currentPage => ({
   type: REQUEST_BOOKS,
-  payload: { currentPage }
-})
+  payload: { currentPage },
+});
 
 /**
  * Action for book setting
@@ -23,7 +23,7 @@ export const requestBooks = currentPage => ({
  * @returns {FluxStandardAction}
  */
 // FIXME: CHANGE TO RIGHT FluxStandardAction
-export const setBooks = books => ({ type: SUCCESS_BOOKS, payload: { books } })
+export const setBooks = books => ({ type: SUCCESS_BOOKS, payload: { books } });
 
 /**
  * Action for error setting
@@ -34,8 +34,8 @@ export const setBooks = books => ({ type: SUCCESS_BOOKS, payload: { books } })
 export const setBooksError = message => ({
   type: ERROR_BOOKS,
   error: true,
-  payload: { message }
-})
+  payload: { message },
+});
 
 /**
  * Action for saga request books
@@ -45,5 +45,5 @@ export const setBooksError = message => ({
  */
 export const requestBooksAsync = pageSize => ({
   type: REQUEST_BOOKS_ASYNC,
-  payload: { pageSize }
-})
+  payload: { pageSize },
+});

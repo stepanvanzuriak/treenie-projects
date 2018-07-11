@@ -1,7 +1,7 @@
-import { compose, lifecycle, withProps } from 'recompose'
-import { connect } from 'react-redux'
+import { compose, lifecycle, withProps } from 'recompose';
+import { connect } from 'react-redux';
 
-import { requestBooksAsync } from '../../actions/actions'
+import { requestBooksAsync } from '../../actions/actions';
 
 const mapStateToProps = ({
   books,
@@ -9,25 +9,27 @@ const mapStateToProps = ({
   pageSize,
   pageCount,
   loading,
-  error
+  error,
 }) => ({
   books,
   currentPage,
   pageSize,
   pageCount,
   loading,
-  error
-})
+  error,
+});
 
-export const withData = compose(
+const withData = compose(
   connect(mapStateToProps),
   lifecycle({
     componentDidMount() {
-      const { dispatch, pageSize } = this.props
-      dispatch(requestBooksAsync(pageSize))
-    }
+      const { dispatch, pageSize } = this.props;
+      dispatch(requestBooksAsync(pageSize));
+    },
   }),
-  withProps(({ books, currentPage, pageSize, pageCount, loading, error }) => ({
+  withProps(({
+    books, currentPage, pageSize, pageCount, loading, error,
+  }) => ({
     pageSize,
     loading,
     error,
@@ -40,14 +42,16 @@ export const withData = compose(
         Title: title,
         Description: description,
         Excerpt: excerpt,
-        PublishDate: publishDate
+        PublishDate: publishDate,
       }) => ({
         id,
         title,
         description,
         excerpt,
-        publishDate
-      })
-    )
-  }))
-)
+        publishDate,
+      }),
+    ),
+  })),
+);
+
+export default withData;

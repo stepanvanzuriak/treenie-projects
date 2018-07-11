@@ -1,13 +1,19 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Alert } from 'reactstrap'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Alert } from 'reactstrap';
 
-export const Error = ({ text }) => <Alert color="danger">{text}</Alert>
+const Error = ({ text }) => (
+  <Alert color="danger">
+    {text}
+  </Alert>
+);
 
 Error.defaultProps = {
-  text: ''
-}
+  text: '',
+};
 
 Error.propTypes = {
-  text: PropTypes.string
-}
+  text: PropTypes.string,
+};
+
+export default Error;

@@ -1,18 +1,14 @@
-import React, { Component } from 'react'
+import React from 'react';
 
-import Books from './containers/Books'
-import './App.css'
+import Books from './containers/Books';
+import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="container">
-          <Books />
-        </div>
-      </div>
-    )
-  }
-}
+const App = () => (
+  <div className="App">
+    <div className="container">
+      <Books />
+    </div>
+  </div>
+);
 
-export default App
+export default App;

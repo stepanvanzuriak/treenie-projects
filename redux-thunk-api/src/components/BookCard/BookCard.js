@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Card, CardTitle, CardText } from 'reactstrap'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Card, CardTitle, CardText } from 'reactstrap';
 
-export const BookCard = ({
+const BookCard = ({
   title,
   description,
   excerpt,
@@ -13,19 +13,33 @@ export const BookCard = ({
 }) => (
   <Card body key={id} {...rest}>
     <CardTitle>
-      <b>{title}</b>
+      <b>
+        {title}
+      </b>
     </CardTitle>
     <CardText>
-      <b>Description:</b> {description}
+      <b>
+Description:
+      </b>
+      {' '}
+      {description}
     </CardText>
     <CardText>
-      <b>Excerpt:</b> {excerpt}
+      <b>
+Excerpt:
+      </b>
+      {' '}
+      {excerpt}
     </CardText>
     <CardText>
-      <b>PublishDate:</b> {publishDate}
+      <b>
+PublishDate:
+      </b>
+      {' '}
+      {publishDate}
     </CardText>
   </Card>
-)
+);
 
 BookCard.defaultProps = {
   title: '',
@@ -33,8 +47,8 @@ BookCard.defaultProps = {
   excerpt: '',
   publishDate: '',
   id: 0,
-  onButtonClick: () => {}
-}
+  onButtonClick: () => {},
+};
 
 BookCard.propTypes = {
   title: PropTypes.string,
@@ -42,5 +56,7 @@ BookCard.propTypes = {
   excerpt: PropTypes.string,
   id: PropTypes.number,
   publishDate: PropTypes.string,
-  onButtonClick: PropTypes.func
-}
+  onButtonClick: PropTypes.func,
+};
+
+export default BookCard;

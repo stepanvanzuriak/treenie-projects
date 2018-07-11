@@ -1,8 +1,8 @@
 import {
   SUCCESS_BOOKS,
   ERROR_BOOKS,
-  REQUEST_BOOKS
-} from '../actions/actionTypes'
+  REQUEST_BOOKS,
+} from '../actions/actionTypes';
 
 const initState = {
   books: [],
@@ -10,25 +10,31 @@ const initState = {
   error: null,
   currentPage: 0,
   pageSize: 6,
-  pageCount: 32
-}
-
+  pageCount: 32,
+};
+/* eslint-disable import/prefer-default-export */
 export const bookShop = (state = initState, { type, payload }) => {
   switch (type) {
     case REQUEST_BOOKS:
-      const { currentPage } = payload
-      return { ...state, currentPage }
+      const { currentPage } = payload;
+      return { ...state, currentPage };
     case SUCCESS_BOOKS:
-      const { books } = payload
-      return { ...state, books, loading: false, error: null }
+      const { books } = payload;
+      return {
+        ...state,
+        books,
+        loading: false,
+        error: null,
+      };
     case ERROR_BOOKS:
-      const { message } = payload
+      const { message } = payload;
       return {
         ...state,
         loading: false,
-        error: message
-      }
+        error: message,
+      };
     default:
-      return state
+      return state;
   }
-}
+};
+/* eslint-enable */

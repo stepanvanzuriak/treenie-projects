@@ -1,41 +1,38 @@
-import moment from 'moment'
+import moment from 'moment';
 
 /**
  * Divide array by chunks
  *
  * @param {array} array  Array to divide
- * @param {number} size  Chunk size
+ * @param {?number} size  Chunk size
  * @returns {array}
  */
 export const chunks = (array = [], size = 0) => {
-  const result = []
-  let tmpArray = []
-  let count = 0
-
-  size = size || 0
-  array = array || []
+  const result = [];
+  let tmpArray = [];
+  let count = 0;
 
   if (size === 0) {
-    return array
+    return array;
   }
 
-  array.forEach(element => {
-    count++
-    tmpArray.push(element)
+  array.forEach((element) => {
+    count += 1;
+    tmpArray.push(element);
 
     if (count === size) {
-      result.push(tmpArray)
-      count = 0
-      tmpArray = []
+      result.push(tmpArray);
+      count = 0;
+      tmpArray = [];
     }
-  })
+  });
 
   if (count !== 0) {
-    result.push(tmpArray)
+    result.push(tmpArray);
   }
 
-  return result
-}
+  return result;
+};
 
 /**
  * Formating function for books from api
@@ -47,5 +44,5 @@ export const formatBook = book => ({
   ...book,
   Description: book.Description.substr(0, 100),
   Excerpt: book.Excerpt.substr(0, 150),
-  PublishDate: moment(book.PublishDate).format('L')
-})
+  PublishDate: moment(book.PublishDate).format('L'),
+});
