@@ -1,0 +1,22 @@
+[
+  {
+    "ID": 1,
+    "Title": "Book 1",
+    "Description":
+      "Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\n",
+    "PageCount": 100,
+    "Excerpt":
+      "Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\n",
+    "PublishDate": "2018-07-08T14:41:49.8522461+00:00"
+  },
+  {
+    "ID": 2,
+    "Title": "Book 1",
+    "Description":
+      "Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\n",
+    "PageCount": 100,
+    "Excerpt":
+      "Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\r\n",
+    "PublishDate": "2018-07-08T14:41:49.8522461+00:00"
+  }
+]

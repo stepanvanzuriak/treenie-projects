@@ -9,6 +9,7 @@ export function* loadBooks({ payload: { pageSize } }) {
 
     yield put(setBooks(chunks(_books.data.map(formatBook), pageSize)))
   } catch (error) {
+    console.log(error)
     yield put(setBooksError(':( Something bad happen. Try again later.'))
   }
 }
