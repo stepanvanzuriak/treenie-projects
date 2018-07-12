@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { reduxForm } from 'redux-form';
+import PropTypes from 'prop-types';
 import Step1 from './Steps/Step1';
 import Step2 from './Steps/Step2';
 import Step3 from './Steps/Step3';
@@ -47,6 +48,16 @@ const Registration = ({ handleSubmit, invalid }) => {
       />
     </Form>
   );
+};
+
+Registration.defaultProps = {
+  handleSubmit: () => {},
+  invalid: false
+};
+
+Registration.propTypes = {
+  handleSubmit: PropTypes.func,
+  invalid: PropTypes.bool
 };
 
 export default reduxForm({ form: 'Registration' })(Registration);
