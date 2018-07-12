@@ -1,0 +1,14 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "jsx-a11y/href-no-hash": "off",
+    "react/jsx-filename-extension": 0,
+    "react/prop-types": 2,
+    "no-param-reassign": 2,
+    "no-case-declarations": 0
+  },
+  "env": {
+    "jest": true,
+    "browser": true
+  }
+}
