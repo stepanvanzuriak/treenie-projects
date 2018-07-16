@@ -11,7 +11,7 @@ export class StepRouter {
     this.routers.push({
       path,
       component,
-      props: { ...props }
+      props
     });
   }
 
@@ -23,13 +23,13 @@ export class StepRouter {
     this.pastSteps = pastSteps;
   }
 
-  setLast(last) {
-    this.last = last;
+  setLast(route) {
+    this.last = route;
   }
 
-  setFirst(first) {
-    this.first = first;
-    this.setCurrent(first);
+  setFirst(route) {
+    this.first = route;
+    this.setCurrent(route);
   }
 
   setRouters(routers, defaultComponent) {
@@ -37,12 +37,12 @@ export class StepRouter {
     this.setLast(routers[routers.length - 1].path);
 
     routers
-      .map(({ ...props }, index) => ({
+      .map((props, index) => ({
         ...props,
         back: index - 1 > -1 ? routers[index - 1].path : null,
         next: index + 1 < routers.length ? routers[index + 1].path : null
       }))
-      .forEach(({ path, component, ...props }, index) => {
+      .forEach(({ path, component, ...props }) => {
         this.add({
           path,
           component: component
