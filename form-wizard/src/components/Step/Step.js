@@ -17,7 +17,7 @@ const Step = ({
   invalid,
   onBack,
   onNext,
-  inner: Component
+  fields: Component
 }) => {
   return (
     <Container>
@@ -57,10 +57,10 @@ Step.defaultProps = {
   text: '',
   next: '',
   back: '',
-  invalid: true,
+  invalid: undefined,
   onBack: () => {},
   onNext: () => {},
-  inner: () => <div />
+  fields: () => <div />
 };
 
 Step.propTypes = {
@@ -70,7 +70,7 @@ Step.propTypes = {
   invalid: PropTypes.bool,
   onBack: PropTypes.func,
   onNext: PropTypes.func,
-  inner: PropTypes.func
+  fields: PropTypes.func
 };
 
 export default Step;

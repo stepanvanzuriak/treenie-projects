@@ -9,6 +9,8 @@ import Step3 from './Steps/Step3';
 import Congratulation from './Steps/Congratulation';
 import { Form } from 'reactstrap';
 import Steps from '../../components/Steps';
+import Step from '../../components/Step';
+import { StepRouter } from '../../components/Steps/utils';
 
 const steps = [
   {
@@ -38,14 +40,16 @@ const steps = [
   }
 ];
 
-const Registration = ({ handleSubmit, invalid }) => {
+const Registration = ({ handleSubmit, ...props }) => {
+  const stepRouters = new StepRouter();
+
+  stepRouters.setRouters(steps, props => <Step {...props} />);
+  stepRouters.setFirst('/registration/step1');
+  stepRouters.setLast('/registration/congratulation');
+
   return (
     <Form onSubmit={handleSubmit}>
-      <Steps
-        steps={steps}
-        invalid={invalid}
-        last="/registration/congratulation"
-      />
+      <Steps stepRouters={stepRouters} {...props} />
     </Form>
   );
 };
