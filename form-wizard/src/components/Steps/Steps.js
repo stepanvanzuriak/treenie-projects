@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 class Steps extends Component {
   constructor(props) {
     super(props);
-    this.router = this.props.stepRouters;
+    this.router = this.props.routers;
   }
 
   onNext = step => {
@@ -28,12 +28,18 @@ class Steps extends Component {
   }
 
   componentDidUpdate() {
-    const { history, location } = this.props;
+    const {
+      history,
+      location: { pathname }
+    } = this.props;
     const { pastSteps, current } = this.router;
 
     if (history.action === 'POP') {
-      if (pastSteps.includes(location.pathname)) {
-        this.onBack(location.pathname);
+      if (pastSteps.includes(pathname)) {
+        this.router.setPastSteps(
+          pastSteps.filter(pastStep => pastStep !== pathname)
+        );
+        this.router.setCurrent(pathname);
       } else {
         history.replace(current);
       }

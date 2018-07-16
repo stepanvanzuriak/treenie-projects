@@ -9,10 +9,10 @@ const Congratulation = () => {
         <div>
           <Breadcrumb>
             <BreadcrumbItem active>
-              Congratulation
               <span role="img" aria-label="clap">
                 👏
-              </span>
+              </span>{' '}
+              Congratulation
             </BreadcrumbItem>
           </Breadcrumb>
         </div>

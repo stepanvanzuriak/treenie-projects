@@ -33,14 +33,23 @@ export class StepRouter {
   }
 
   setRouters(routers, defaultComponent) {
-    routers.forEach(({ path, component, ...props }) => {
-      this.add({
-        path,
-        component: component
-          ? component
-          : rest => defaultComponent({ ...props, ...rest })
+    this.setFirst(routers[0].path);
+    this.setLast(routers[routers.length - 1].path);
+
+    routers
+      .map(({ ...props }, index) => ({
+        ...props,
+        back: index - 1 > -1 ? routers[index - 1].path : null,
+        next: index + 1 < routers.length ? routers[index + 1].path : null
+      }))
+      .forEach(({ path, component, ...props }, index) => {
+        this.add({
+          path,
+          component: component
+            ? component
+            : rest => defaultComponent({ ...props, ...rest })
+        });
       });
-    });
   }
 
   isCurrent(router) {

@@ -28,26 +28,31 @@ const Step = ({
       </div>
       <Component />
       <Row>
-        <Col>
-          <Link to={back}>
-            <Button block color="primary" onClick={() => onBack(back)}>
-              Back
-            </Button>
-          </Link>
-        </Col>
-        <Col>
-          <Link to={next}>
-            <Button
-              type="submit"
-              block
-              color="primary"
-              disabled={invalid}
-              onClick={() => onNext(next)}
-            >
-              Next
-            </Button>
-          </Link>
-        </Col>
+        {back ? (
+          <Col>
+            <Link to={back}>
+              <Button block color="primary" onClick={() => onBack(back)}>
+                Back
+              </Button>
+            </Link>{' '}
+          </Col>
+        ) : null}
+
+        {next ? (
+          <Col>
+            <Link to={next}>
+              <Button
+                type="submit"
+                block
+                color="primary"
+                disabled={invalid}
+                onClick={() => onNext(next)}
+              >
+                Next
+              </Button>
+            </Link>{' '}
+          </Col>
+        ) : null}
       </Row>
     </Container>
   );
